@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waves Free Diamonds</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#070d0c;
+  --panel:#101b18;
+  --line:#23332e;
+  --white:#eef8f3;
+  --muted:#8ca39a;
+  --mint:#2be0a0;
+}
+* {box-sizing:border-box;margin:0;padding:0}
+body {
+  background:var(--bg);
+  color:var(--white);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+body:before {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.2;
+  background-image:
+    linear-gradient(#50706014 1px,transparent 1px),
+    linear-gradient(90deg,#50706014 1px,transparent 1px);
+  background-size:54px 54px;
+}
+.topbar {
+  height:66px;
+  background:#101513;
+  border-bottom:1px solid #1e2926;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 22px;
+  position:relative;
+  z-index:2;
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  font-size:18px;
+}
+.dots {display:flex;gap:5px}
+.dots i {
+  width:11px;height:11px;
+  border-radius:50%;display:block
+}
+.dots i:nth-child(1){background:#ff8b24}
+.dots i:nth-child(2){background:#27dba0}
+.dots i:nth-child(3){background:#f9d84a}
+.dots i:nth-child(4){background:#a855f7}
+.live-pill {
+  border:1px solid #176448;
+  background:#0b2119;
+  color:#55e9ac;
+  border-radius:20px;
+  padding:9px 14px;
+  font:600 12px 'JetBrains Mono';
+  letter-spacing:1px;
+}
+.live-pill:before {
+  content:"";
+  display:inline-block;
+  width:7px;height:7px;
+  background:#2de39c;
+  border-radius:50%;
+  margin-right:9px;
+}
+.ticker {
+  height:35px;
+  background:#0c1412;
+  border-bottom:1px solid #1a2824;
+  overflow:hidden;
+  white-space:nowrap;
+  color:#83978f;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+}
+.ticker-track {
+  display:flex;
+  gap:60px;
+  min-width:max-content;
+  animation:marquee 28s linear infinite;
+  padding-left:20px;
+}
+@keyframes marquee {
+  to {transform:translateX(-50%)}
+}
+.wrap {
+  width:min(940px,100%);
+  margin:auto;
+  padding:34px 22px 50px;
+}
+.section-head {
+  display:flex;
+  align-items:center;
+  gap:13px;
+  color:#80968e;
+  font:700 12px 'JetBrains Mono';
+  letter-spacing:3px;
+  margin:2px 0 17px;
+}
+.section-head:before {
+  content:"";
+  width:26px;height:3px;
+  background:linear-gradient(90deg,#28dca0,#45b4ff);
+}
+.video-panel {
+  aspect-ratio:16/9;
+  background:linear-gradient(
+    180deg,#073c5c,#15536a 48%,
+    #263d43 49%,#384849
+  );
+  border:1px solid #264d54;
+  border-radius:20px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 12px 30px #0008;
+}
+.video-panel:after {
+  content:"";
+  position:absolute;
+  bottom:0;left:-5%;
+  width:110%;height:52%;
+  background:#4a5c5d;
+  opacity:.7;
+  clip-path:polygon(
+    0 35%,8% 35%,11% 15%,18% 17%,
+    22% 35%,28% 30%,33% 45%,41% 42%,
+    46% 15%,53% 18%,59% 40%,67% 36%,
+    72% 20%,79% 27%,84% 45%,91% 39%,
+    96% 55%,100% 50%,100% 100%,0 100%
+  );
+}
+.corner {
+  position:absolute;
+  width:40px;height:40px;
+  border-color:#37d9a1;
+  z-index:2;
+}
+.tl {
+  top:18px;left:18px;
+  border-top:2px solid;
+  border-left:2px solid;
+}
+.br {
+  bottom:18px;right:18px;
+  border-bottom:2px solid;
+  border-right:2px solid;
+}
+.live-tag {
+  position:absolute;
+  right:22px;top:20px;
+  border:1px solid #73374b;
+  background:#211720;
+  color:#ff5574;
+  padding:9px 17px;
+  border-radius:8px;
+  font:700 12px 'JetBrains Mono';
+  letter-spacing:2px;
+  z-index:3;
+}
+.live-tag:before {
+  content:"";
+  display:inline-block;
+  width:7px;height:7px;
+  border-radius:50%;
+  background:#f34d6b;
+  margin-right:8px;
+}
+.video-slot {
+  position:absolute;
+  inset:0;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.video-slot video {
+  width:100%;height:100%;
+  object-fit:contain;
+  background:#000;
+}
+.watch-title {
+  text-align:center;
+  font-weight:800;
+  font-size:26px;
+  letter-spacing:1px;
+  margin:14px 0 2px;
+}
+.watch-title b {
+  background:linear-gradient(90deg,#fff,#ff9d36);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.subtitle {
+  text-align:center;
+  color:#8da49b;
+  font-size:15px;
+  margin-bottom:10px;
+}
+.claims {
+  text-align:center;
+  color:#35dfa1;
+  font-size:14px;
+  font-weight:800;
+  margin-bottom:12px;
+}
+.cta {
+  height:70px;
+  width:100%;
+  border:0;
+  border-radius:20px;
+  background:linear-gradient(
+    100deg,#ff851b,#1fe0a2 52%,#a64df2
+  );
+  color:#fff;
+  font-weight:800;
+  font-size:21px;
+  letter-spacing:2px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:17px;
+  cursor:pointer;
+  box-shadow:0 8px 24px #19d49b25;
+}
+.cta:active {transform:scale(.99)}
+.step-two {margin-top:27px}
+.app-card {
+  background:linear-gradient(110deg,#111c19,#15131f);
+  border:1px solid #25332e;
+  border-radius:22px;
+  overflow:hidden;
+}
+.app-main {
+  display:flex;
+  gap:20px;
+  padding:20px 22px 19px;
+  align-items:center;
+}
+.app-icon {
+  width:80px;height:80px;
+  border-radius:16px;
+  border:2px solid #77501e;
+  object-fit:cover;
+  background:#101b2a;
+  flex-shrink:0;
+}
+.app-info {min-width:0;flex:1}
+.tags {
+  display:flex;
+  gap:10px;
+  margin-bottom:9px;
+}
+.tag {
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  padding:6px 14px;
+  border-radius:16px;
+  border:1px solid;
+}
+.trending {
+  color:#ff922d;
+  background:#48290f;
+  border-color:#96531c;
+}
+.verified {
+  color:#d5a6ff;
+  background:#2a1a3f;
+  border-color:#72459b;
+}
+.app-title {
+  font-size:23px;
+  font-weight:800;
+  letter-spacing:.4px;
+  margin-bottom:3px;
+}
+.app-desc {font-size:14px;color:#9baca5}
+.rating {
+  margin-top:7px;
+  color:#f8d54d;
+  letter-spacing:2px;
+  font-size:16px;
+}
+.rating strong {
+  color:#eaf2ee;
+  letter-spacing:0;
+  font-size:14px;
+  margin-left:7px;
+}
+.comments {
+  background:#0c1513;
+  border-top:1px solid #1e302a;
+  padding:22px 23px 17px;
+}
+.comments-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:19px;
+  font:700 14px 'JetBrains Mono';
+  letter-spacing:1.5px;
+}
+.comments-head .left:before {
+  content:"";
+  display:inline-block;
+  width:8px;height:8px;
+  background:#ed4357;
+  border-radius:50%;
+  margin-right:11px;
+}
+.watching {
+  font-size:12px;
+  color:#829990;
+  letter-spacing:1px;
+}
+.comment-list {
+  display:flex;
+  flex-direction:column;
+  gap:17px;
+  max-height:410px;
+  overflow:auto;
+}
+.comment {
+  display:flex;
+  gap:15px;
+  align-items:flex-start;
+}
+.avatar {
+  width:41px;height:41px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font:700 13px 'JetBrains Mono';
+  flex-shrink:0;
+  background:#159d91;
+}
+.comment:nth-child(2) .avatar{background:#d71928}
+.comment:nth-child(3) .avatar{background:#3d42bd}
+.comment:nth-child(4) .avatar{background:#169f8f}
+.comment:nth-child(5) .avatar{background:#c72d52}
+.comment:nth-child(6) .avatar{background:#647f73}
+.comment-content {min-width:0;flex:1}
+.comment-name {
+  font-size:15px;
+  font-weight:800;
+  margin-bottom:4px;
+}
+.comment-name small {
+  font:400 11px 'JetBrains Mono';
+  color:#81968d;
+  margin-left:8px;
+}
+.comment-text {
+  font-size:15px;
+  line-height:1.55;
+  color:#c3d0ca;
+}
+.scroll-more {
+  text-align:center;
+  color:#71877e;
+  font:600 11px 'JetBrains Mono';
+  letter-spacing:1.5px;
+  margin-top:22px;
+}
+.footer {
+  text-align:center;
+  color:#60746c;
+  font:10px 'JetBrains Mono';
+  letter-spacing:1.4px;
+  padding:26px 12px 8px;
+}
+@media(max-width:600px) {
+  .topbar {padding:0 20px}
+  .brand {font-size:16px;letter-spacing:1px}
+  .live-pill {padding:8px 12px;font-size:11px}
+  .ticker-track {gap:48px}
+  .wrap {padding:34px 20px 35px}
+  .app-main {padding:18px 20px;gap:15px}
+  .app-icon {width:78px;height:78px}
+  .app-title {font-size:22px}
+  .comments {padding:23px}
+  .comment {gap:15px}
+}
+@media(max-width:360px) {
+  .wrap {padding-left:12px;padding-right:12px}
+  .app-icon {width:65px;height:65px}
+  .app-title {font-size:19px}
+  .app-desc {font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- CHANGE THESE THREE VALUES -->
+<script>
+const VIDEO_URL = "https://stream.vidhosting.in/videos/d809bf3f.mp4";
+const APP_IMAGE_URL = "https://i.postimg.cc/s2tBpD7x/file-00000000b4948208875a73ddd47d088c.png";
+const OFFER_URL = "https://yuioplkj.gotrackier.com/click?campaign_id=5634&pub_id=479&p1=%7Byour-transaction-id%7D&source=notxxxx";
+</script>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="dots"><i></i><i></i><i></i><i></i></span>
+    WAVES FREE DIAMONDS
+  </div>
+  <div class="live-pill">1,395 LIVE</div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Unlimited Diamonds</span><span>—</span>
+    <span>Instant Claim</span><span>—</span>
+    <span>Watch Full Video</span><span>—</span>
+    <span>Unlimited Diamonds</span><span>—</span>
+    <span>Instant Claim</span><span>—</span>
+    <span>Watch Full Video</span><span>—</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="section-head"><span>STEP 01 — WATCH</span></div>
+
+  <div class="video-panel">
+    <div class="corner tl"></div>
+    <div class="corner br"></div>
+    <div class="live-tag">LIVE</div>
+    <div class="video-slot">
+      <video id="mainVideo" controls playsinline preload="metadata"></video>
+    </div>
+  </div>
+
+  <h1 class="watch-title">WATCH <b>FULL VIDEO</b></h1>
+  <p class="subtitle">Complete the video to unlock free diamonds</p>
+  <p class="claims">12,524 <span style="color:#9aac9f;font-weight:500">claims in last hour</span></p>
+
+  <button class="cta" id="getDiamonds">
+    <span>▸❘</span> GET DIAMONDS
+  </button>
+
+  <div class="step-two">
+    <div class="section-head"><span>STEP 02 — CLAIM</span></div>
+
+    <section class="app-card">
+      <div class="app-main">
+        <img class="app-icon" id="appImage" alt="Waves Free Diamonds app icon">
+        <div class="app-info">
+          <div class="tags">
+            <span class="tag trending">TRENDING</span>
+            <span class="tag verified">VERIFIED</span>
+          </div>
+          <h2 class="app-title">WAVES FREE DIAMONDS</h2>
+          <p class="app-desc">Free Fire Diamonds · Unlimited Claim · No Ban</p>
+          <div class="rating">★ ★ ★ ★ ★ <strong>4.9</strong></div>
+        </div>
+      </div>
+
+      <div class="comments">
+        <div class="comments-head">
+          <span class="left">Live Comments</span>
+          <span class="watching">1,872 watching</span>
+        </div>
+
+        <div class="comment-list">
+          <div class="comment">
+            <div class="avatar">A</div>
+            <div class="comment-content">
+              <div class="comment-name">AjayPun8 <small>just now</small></div>
+              <p class="comment-text">1 min me aa gaye | mast</p>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">A</div>
+            <div class="comment-content">
+              <div class="comment-name">AnkitV2574 <small>just now</small></div>
+              <p class="comment-text">Mumbai se ~ update mil gaya</p>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">N</div>
+            <div class="comment-content">
+              <div class="comment-name">Nikhil_Max274 <small>9s ago</small></div>
+              <p class="comment-text">bhai diamond hack working hai &gt;&gt; legend</p>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">R</div>
+            <div class="comment-content">
+              <div class="comment-name">ravi9069 <small>just now</small></div>
+              <p class="comment-text">Lucknow se ~ ff diamonds working hai 👍</p>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">J</div>
+            <div class="comment-content">
+              <div class="comment-name">jaiBoss69 <small>1s ago</small></div>
+              <p class="comment-text">Ignore se, diamond claim hogya 🔥</p>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="avatar">V</div>
+            <div class="comment-content">
+              <div class="comment-name">vivek4442 <small>2s ago</small></div>
+              <p class="comment-text">Mumbai se, free diamonds hogya</p>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-more">⌄ Scroll for more</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="footer">WAVES FREE DIAMONDS · COMMUNITY PORTAL</div>
+</main>
+
+<script>
+document.getElementById("mainVideo").src = VIDEO_URL;
+document.getElementById("appImage").src = APP_IMAGE_URL;
+
+document.getElementById("getDiamonds").addEventListener("click", () => {
+  window.open(OFFER_URL, "_blank", "noopener");
+});
+</script>
+</body>
+</html>
